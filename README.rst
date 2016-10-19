@@ -1,7 +1,8 @@
-OpenBSD bootstrap
-#################
+Debian bootstrap
+################
 
-Role to bootstrap an OpenBSD instance (allow Ansible to provision the instance).
+Role to bootstrap a Debian or derivative instance (allow Ansible to provision
+the instance).
 
 Requirements
 ------------

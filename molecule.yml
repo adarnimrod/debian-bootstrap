@@ -13,12 +13,14 @@ vagrant:
   - name: virtualbox
     type: virtualbox
   platforms:
-  - name: openbsd60
-    box: kaorimatz/openbsd-6.0-amd64
-  - name: openbsd56
-    box: tmatilai/openbsd-5.6
+  - name: jessie
+    box: debian/jessie64
+  - name: trusty
+    box: ubuntu/trusty64
+  - name: xenial
+    box: ubuntu/xenial64
   instances:
-  - name: ansible-role-openbsd-bootstrap
+  - name: ansible-role-debian-bootstrap
     options:
         append_platform_to_hostname: yes
   raw_config_args:

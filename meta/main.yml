@@ -1,16 +1,17 @@
 galaxy_info:
   author: Nimrod Adar
-  description: Role to bootstrap an OpenBSD instance (allow Ansible to provision the instance).
+  description: Role to bootstrap a Debian or derivative instance (allow Ansible to provision the instance).
   company: Shore technologies.
   license: MIT
   min_ansible_version: 2.0
   platforms:
-  - name: OpenBSD
+  - name: Debian
     versions:
-     - 5.6
-     - 5.7
-     - 5.8
-     - 5.9
-     - 6.0
-  galaxy_tags: ['OpenBSD', 'bootstrap']
+        - jessie
+        - stretch
+  - name: Ubuntu
+    versions:
+        - trusty
+        - xenial
+  galaxy_tags: ['Debian', 'bootstrap', 'Ubuntu']
 dependencies: []
