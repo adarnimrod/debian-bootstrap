@@ -1,30 +1,10 @@
 ---
-# tasks file for ansible-role-openbsd-bootstrap
+# tasks file for ansible-role-debian-bootstrap
+- name: Update APT sources
+  raw: DEBIAN_FRONTEND=noninteractive apt-get update
+  changed_when: False
 
-- name: Install Python
-  raw: "PKG_PATH={{ openbsd_pkg_mirror }}/OpenBSD/$(uname -r)/packages/$(arch -s)/ /usr/sbin/pkg_add -Iz python-2.7"
-  register: openbsd_pkg_add_python
-  failed_when: "'error' in openbsd_pkg_add_python.stdout|lower"
-  changed_when: "'py-pip' in openbsd_pkg_add_python.stdout"
-  tags:
-      - skip_ansible_lint
-
-- name: Gather facts
-  setup:
-
-- name: Symlink python
-  file:
-      path: /usr/bin/python
-      src: /usr/local/bin/python2.7
-      state: link
-      owner: root
-      group: 0
-      mode: 0o0755
-
-- name: Configure pkg
-  lineinfile:
-    dest: /etc/pkg.conf
-    line: 'installpath = {{ openbsd_pkg_mirror }}/OpenBSD/{{ ansible_distribution_release }}/packages/{{ ansible_architecture }}/'
-    regexp: '^installpath ='
-    state: present
-    create: yes
+- name: APT install Python
+  raw: DEBIAN_FRONTEND=noninteractive apt-get install -qy python2.7 python
+  register: debian_bootstrap_install_python
+  changed_when: "'Unpacking' in debian_bootstrap_install_python.stdout"
