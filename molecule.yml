@@ -27,7 +27,7 @@ vagrant:
   - 'landrush_ip.override = false'
 
 docker:
-  dockerfile: tests/dockerfile
+  build_image: False
   containers:
   - name: debian-bootstrap-xenial
     image: ubuntu

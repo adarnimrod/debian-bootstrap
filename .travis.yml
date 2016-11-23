@@ -10,6 +10,7 @@ install:
   - pip install -r tests/requirements.txt
   - ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
   - molecule dependency
+  - for image in ubuntu:trusty ubuntu:xenial debian:jessie debian:stretch; do docker pull $image; done
 
 script:
   - pre-commit run --all-files
