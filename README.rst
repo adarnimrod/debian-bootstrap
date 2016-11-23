@@ -7,8 +7,7 @@ the instance).
 Requirements
 ------------
 
-See :code:`meta/main.yml`, :code:`tests/requirements.yml` and assertions at
-the top of :code:`tasks/main.yml`.
+See :code:`meta/main.yml` and assertions at the top of :code:`tasks/main.yml`.
 
 Role Variables
 --------------
