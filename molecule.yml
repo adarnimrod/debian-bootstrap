@@ -17,7 +17,7 @@ vagrant:
   - name: xenial
     box: ubuntu/xenial64
   instances:
-  - name: ansible-role-debian-bootstrap
+  - name: debian-bootstrap
     options:
         append_platform_to_hostname: yes
   raw_config_args:
@@ -28,7 +28,7 @@ vagrant:
 
 docker:
   containers:
-  - name: ansible-role-debian-bootstrap-ubuntu
+  - name: debian-bootstrap-ubuntu
     image: ubuntu
     image_version: xenial
     environment:
