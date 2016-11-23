@@ -8,3 +8,4 @@
         become_user: nobody
         command: whoami
         changed_when: False
+        when: ansible_connection == 'ssh'
