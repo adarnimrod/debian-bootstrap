@@ -44,3 +44,8 @@ docker:
     image_version: jessie
     environment:
         DEBIAN_FRONTEND: noninteractive
+  - name: debian-bootstrap-stretch
+    image: debian
+    image_version: stretch
+    environment:
+        DEBIAN_FRONTEND: noninteractive
