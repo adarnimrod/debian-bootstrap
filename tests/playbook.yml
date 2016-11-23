@@ -3,9 +3,13 @@
   gather_facts: False
   roles: [debian-bootstrap]
   post_tasks:
+      - name: APT install sudo
+        apt:
+            name: sudo
+            state: present
+
       - name: Test task with an unprivileged user
         become: True
         become_user: nobody
         command: whoami
         changed_when: False
-        when: ansible_connection == 'ssh'
