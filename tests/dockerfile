@@ -1,0 +1,2 @@
+FROM {container_image}:{container_version}
+{container_environment}
