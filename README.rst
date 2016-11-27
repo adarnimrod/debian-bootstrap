@@ -1,6 +1,9 @@
 Debian bootstrap
 ################
 
+.. image:: https://travis-ci.org/adarnimrod/debian-bootstrap.svg?branch=master
+    :target: https://travis-ci.org/adarnimrod/debian-bootstrap
+
 Role to bootstrap a Debian or derivative instance (allow Ansible to provision
 the instance).
 

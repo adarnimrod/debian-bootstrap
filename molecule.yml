@@ -5,6 +5,7 @@ ansible:
   diff: True
   config_file: ../ansible.cfg
 
+
 vagrant:
   providers:
   - name: virtualbox
@@ -32,6 +33,12 @@ docker:
   - name: debian-bootstrap-xenial
     image: ubuntu
     image_version: xenial
+    command: /sbin/init
+    cap_add:
+      - SYS_ADMIN
+    volume_mounts:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
     environment:
         DEBIAN_FRONTEND: noninteractive
   - name: debian-bootstrap-trusty
@@ -42,8 +49,15 @@ docker:
   - name: debian-bootstrap-jessie
     image: debian
     image_version: jessie
+    command: /sbin/init
+    cap_add:
+      - SYS_ADMIN
+    volume_mounts:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
     environment:
         DEBIAN_FRONTEND: noninteractive
+        container: docker
   - name: debian-bootstrap-stretch
     image: debian
     image_version: stretch
