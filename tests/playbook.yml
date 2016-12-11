@@ -8,6 +8,12 @@
             name: sudo
             state: present
 
+      - name: Test gathering facts
+        setup:
+
+      - name: Test ping
+        ping:
+
       - name: Test task with an unprivileged user
         become: True
         become_user: nobody
