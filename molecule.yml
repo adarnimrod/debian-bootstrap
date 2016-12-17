@@ -11,12 +11,10 @@ vagrant:
   - name: virtualbox
     type: virtualbox
   platforms:
-  - name: jessie
-    box: debian/jessie64
-  - name: trusty
-    box: ubuntu/trusty64
   - name: xenial
     box: ubuntu/xenial64
+    ansible_groups:
+    - debian_bootstrap
   instances:
   - name: debian-bootstrap
     options:
