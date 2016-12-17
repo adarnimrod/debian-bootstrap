@@ -16,8 +16,12 @@ vagrant:
   platforms:
   - name: openbsd
     box: kaorimatz/openbsd-6.0-amd64
+    ansible_groups:
+    - openbsd_bootstrap
   - name: xenial
     box: ubuntu/xenial64
+    ansible_groups:
+    - debian_bootstrap
   instances:
   - name: example
     options:

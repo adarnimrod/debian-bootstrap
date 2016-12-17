@@ -1,9 +1,9 @@
 ---
-- hosts: example-openbsd
+- hosts: openbsd_bootstrap
   gather_facts: false
   roles: [openbsd-bootstrap]
 
-- hosts: example-xenial
+- hosts: debian_bootstrap
   gather_facts: false
   roles: [debian-bootstrap]
 
