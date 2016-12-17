@@ -19,3 +19,8 @@
         become_user: nobody
         command: whoami
         changed_when: False
+
+      - name: Assertions
+        assert:
+            that:
+                - ansible_default_ipv4 is defined
