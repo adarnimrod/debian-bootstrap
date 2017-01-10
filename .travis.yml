@@ -1,23 +1,49 @@
 ---
 language: python
-python: "2.7"
+python: ["2.7", "3.5"]
 dist: trusty
-sudo: false
+sudo: True
 group: beta
 services: [docker]
+env:
+    - platform: openbsd60
+      driver: vagrant
+    - platform: openbsd59
+      driver: vagrant
+    - platform: xenial
+      driver: vagrant
+    - platform: trusty
+      driver: vagrant
+    - platform: jessie
+      driver: vagrant
+    - platform: wheezy
+      driver: vagrant
+    - driver: docker
+      platform: all
+matrix:
+    fast_finish: True
+    allow_failures:
+        - python: "3.5"
+        - env: platform=openbsd59 driver=vagrant
+        - env: platform=jessie driver=vagrant
+        - env: platform=wheezy driver=vagrant
 cache:
   - pip
   - directories:
       - $HOME/.pre-commit
 
 install:
+  - sudo apt-get update
+  - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
+  - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
+  - sudo dpkg -i vagrant_1.9.1_x86_64.deb
   - pip install -r tests/requirements.txt | cat
   - ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
   - molecule dependency
 
 script:
   - pre-commit run --all-files
-  - molecule test --driver docker
+  - molecule test --driver $driver --platform $platform
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
