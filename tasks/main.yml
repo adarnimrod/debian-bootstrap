@@ -1,5 +1,6 @@
 ---
 # tasks file for debian-bootstrap
+
 - name: Update APT sources
   raw: DEBIAN_FRONTEND=noninteractive apt-get update
   changed_when: False

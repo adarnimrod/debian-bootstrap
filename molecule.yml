@@ -10,20 +10,32 @@ vagrant:
   providers:
   - name: virtualbox
     type: virtualbox
+    options:
+        cpus: 1
   platforms:
   - name: xenial
-    box: ubuntu/xenial64
-    ansible_groups:
-    - debian_bootstrap
+    box: ubuntu/xenial32
+  - name: trusty
+    box: ubuntu/trusty32
+  - name: jessie
+    box: debian/jessie32
+  - name: wheezy
+    box: debian/wheezy32
+  - name: precise
+    box: hashicorp/precise32
   instances:
   - name: debian-bootstrap
     options:
         append_platform_to_hostname: yes
   raw_config_args:
   - 'vm.synced_folder ".", "/vagrant", disabled: true'
-  - 'vbguest.auto_update = false'
-  - 'landrush.enabled = false'
-  - 'landrush_ip.override = false'
+  - 'vbguest.auto_update = false if Vagrant.has_plugin?("vbguest")'
+  - 'landrush.enabled = false if Vagrant.has_plugin?("landrush")'
+  - 'landrush_ip.override = false if Vagrant.has_plugin?("landrush")'
+  - |
+      vm.provider "virtualbox" do |v|
+        v.customize "pre-boot", ["modifyvm", :id, "--hwvirtex", "off"]
+      end
 
 docker:
   build_image: False
@@ -38,20 +50,22 @@ docker:
       - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
     environment:
         DEBIAN_FRONTEND: noninteractive
+        container: docker
   - name: debian-bootstrap-trusty
     image: ubuntu
     image_version: trusty
     environment:
         DEBIAN_FRONTEND: noninteractive
+        container: docker
+  - name: debian-bootstrap-precise
+    image: ubuntu
+    image_version: precise
+    environment:
+        DEBIAN_FRONTEND: noninteractive
+        container: docker
   - name: debian-bootstrap-jessie
     image: debian
     image_version: jessie
-    command: /sbin/init
-    cap_add:
-      - SYS_ADMIN
-    volume_mounts:
-      - /sys/fs/cgroup:/sys/fs/cgroup
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
     environment:
         DEBIAN_FRONTEND: noninteractive
         container: docker
@@ -60,3 +74,10 @@ docker:
     image_version: stretch
     environment:
         DEBIAN_FRONTEND: noninteractive
+        container: docker
+  - name: debian-bootstrap-wheezy
+    image: debian
+    image_version: wheezy
+    environment:
+        DEBIAN_FRONTEND: noninteractive
+        container: docker

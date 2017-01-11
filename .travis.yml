@@ -1,20 +1,28 @@
 ---
 language: python
-python: "2.7"
+python: ["2.7", "3.4"]
 dist: trusty
-sudo: false
+sudo: True
 group: beta
 services: [docker]
 cache:
   - pip
   - directories:
       - $HOME/.pre-commit
+matrix:
+    fast_finish: True
+    allow_failures:
+        - python: "3.4"
 
 install:
+  - sudo apt-get update
+  - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
+  - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
+  - sudo dpkg -i vagrant_1.9.1_x86_64.deb
   - pip install -r tests/requirements.txt | cat
   - ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
   - molecule dependency
-  - for image in ubuntu:trusty ubuntu:xenial debian:jessie debian:stretch; do docker pull $image; done
+  - for image in ubuntu:precise ubuntu:trusty ubuntu:xenial debian:wheezy debian:jessie debian:stretch; do docker pull $image; done
 
 script:
   - pre-commit run --all-files
