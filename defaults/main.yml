@@ -1,2 +1,4 @@
 ---
 # defaults file for debian-bootstrap
+
+debian_bootstrap_sudo_group: sudoers

@@ -16,3 +16,22 @@
       state: present
       update_cache: yes
       cache_valid_time: 3600
+
+- name: Install sudo
+  when: debian_bootstrap_sudo_group is defined
+  apt:
+      name: sudo
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+- name: Allow sudo access
+  when: debian_bootstrap_sudo_group is defined
+  ignore_errors: "{{ ansible_check_mode }}"
+  lineinfile:
+      dest: '/etc/sudoers'
+      line: '%{{ debian_bootstrap_sudo_group }} ALL=(ALL) NOPASSWD: ALL'
+      regexp: '^%{{ debian_bootstrap_sudo_group }}'
+      state: present
+      owner: root
+      group: root
