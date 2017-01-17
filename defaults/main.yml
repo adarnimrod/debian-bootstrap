@@ -1,3 +1,2 @@
 ---
 # defaults file for debian-bootstrap
-openbsd_pkg_mirror: http://www.mirrorservice.org/pub # Where to get packages.
