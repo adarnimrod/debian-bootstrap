@@ -8,14 +8,15 @@ env:
     global:
         - VBOX_MEMORY=2048
     matrix:
-        - platform: openbsd60
-        - &openbsd59 platform=openbsd59
-        - platform: xenial
-        - platform: trusty
-        - platform: precise
-        - &stretch platform=stretch
-        - platform: jessie
-        - platform: wheezy
+        - TOXENV=pre-commit
+        - TOXENV=openbsd60
+        - &openbsd59 TOXENV=openbsd59
+        - TOXENV=xenial
+        - TOXENV=trusty
+        - TOXENV=precise
+        - &stretch TOXENV=stretch
+        - TOXENV=jessie
+        - TOXENV=wheezy
 matrix:
     fast_finish: True
     allow_failures:
@@ -32,13 +33,10 @@ install:
   - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
   - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
   - sudo dpkg -i vagrant_1.9.1_x86_64.deb
-  - pip install -r tests/requirements.txt | cat
-  - ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
-  - molecule dependency
+  - pip install tox | cat
 
 script:
-  - pre-commit run --all-files
-  - travis_wait 45 molecule test --platform $platform
+  - travis_wait 45 tox
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

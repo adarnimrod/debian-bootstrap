@@ -5,6 +5,10 @@ ansible:
   diff: True
   config_file: ../ansible.cfg
 
+molecule:
+  ignore_paths:
+  - .tox
+
 dependency:
   name: galaxy
   requirements_file: tests/requirements.yml
