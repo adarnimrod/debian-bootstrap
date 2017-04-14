@@ -27,14 +27,13 @@ cache:
   - pip
   - directories:
       - $HOME/.pre-commit
-      - .tox
 
 install:
   - sudo apt-get update
   - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
   - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
   - sudo dpkg -i vagrant_1.9.1_x86_64.deb
-  - pip install tox | cat
+  - pip install tox-travis | cat
 
 script:
   - travis_wait 45 tox -- $tox_switches
