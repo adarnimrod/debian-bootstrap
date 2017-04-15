@@ -9,14 +9,14 @@ env:
         - VBOX_MEMORY=2048
     matrix:
         - TOXENV=pre-commit
-        - tox_switches="--platform openbsd60"
-        - &openbsd59 tox_switches="--platform openbsd59"
-        - tox_switches="--platform xenial"
-        - tox_switches="--platform trusty"
-        - tox_switches="--platform precise"
-        - &stretch tox_switches="--platform stretch"
-        - tox_switches="--platform jessie"
-        - tox_switches="--platform wheezy"
+        - TOXENV=openbsd60
+        - &openbsd59 TOXENV=openbsd59
+        - TOXENV=xenial
+        - TOXENV=trusty
+        - TOXENV=precise
+        - &stretch TOXENV=stretch
+        - TOXENV=jessie
+        - TOXENV=wheezy
 matrix:
     fast_finish: True
     allow_failures:
@@ -36,7 +36,7 @@ install:
   - pip install tox-travis | cat
 
 script:
-  - travis_wait 45 tox -- $tox_switches
+  - travis_wait 45 tox
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
