@@ -10,7 +10,6 @@ env:
     matrix:
         - TOXENV=pre-commit
         - TOXENV=openbsd60
-        - &openbsd59 TOXENV=openbsd59
         - TOXENV=xenial
         - TOXENV=trusty
         - TOXENV=precise
@@ -21,7 +20,6 @@ matrix:
     fast_finish: True
     allow_failures:
         - python: "3.5"
-        - env: *openbsd59
         - env: *stretch
         - env: *jessie
 cache:
