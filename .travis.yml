@@ -15,7 +15,7 @@ env:
         - TOXENV=trusty
         - TOXENV=precise
         - &stretch TOXENV=stretch
-        - TOXENV=jessie
+        - &jessie TOXENV=jessie
         - TOXENV=wheezy
 matrix:
     fast_finish: True
@@ -23,6 +23,7 @@ matrix:
         - python: "3.5"
         - env: *openbsd59
         - env: *stretch
+        - env: *jessie
 cache:
   - pip
   - directories:
