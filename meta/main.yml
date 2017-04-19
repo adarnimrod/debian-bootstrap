@@ -11,5 +11,12 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - xenial
+    - trusty
+    - precise
+  - name: Debian
+    versions:
+    - stretch
+    - jessie
+    - wheezy
   galaxy_tags: [ ansible ]
 dependencies: []
