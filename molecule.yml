@@ -46,6 +46,6 @@ vagrant:
   - 'landrush_ip.override = false if Vagrant.has_plugin?("landrush")'
   - |
       vm.provider "virtualbox" do |v|
-        v.customize "pre-boot", ["modifyvm", :id, "--hwvirtex", "off"]
+        v.customize "pre-boot", ["modifyvm", :id, "--hwvirtex", ENV['VBOX_HWVIRTEX']] if ENV.has_key?('VBOX_HWVIRTEX')
         v.memory = ENV['VBOX_MEMORY'].to_i if ENV.has_key?('VBOX_MEMORY')
       end
