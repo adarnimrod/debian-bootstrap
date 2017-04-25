@@ -21,7 +21,6 @@ matrix:
     fast_finish: True
     allow_failures:
         - env: *stretch
-        - env: *jessie
 cache:
   - pip
   - directories:
