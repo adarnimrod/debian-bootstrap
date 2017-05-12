@@ -13,7 +13,7 @@
     hooks:
     -   id: ansible-syntax-check
 -   repo: https://github.com/willthames/ansible-lint
-    sha: v3.4.12
+    sha: v3.4.13
     hooks:
     -   id: ansible-lint
         files: tests/playbook.yml
