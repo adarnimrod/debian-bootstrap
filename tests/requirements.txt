@@ -1,8 +1,8 @@
 ansible==2.3.0.0
 testinfra==1.6.0
 molecule==1.24.0
-ansible-lint==3.4.12
-python-vagrant==0.5.14
+ansible-lint==3.4.13
+python-vagrant==0.5.15
 netaddr==0.7.19
 passlib==1.7.1
 bcrypt==3.1.3
