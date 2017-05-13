@@ -31,22 +31,9 @@ See :code:`tests/playbook.yml`.
 Testing
 -------
 
-Testing requires Python 2.7 and either Docker or Vagrant and Virtualbox.
-Install the Python dependencies, dependent roles and roles required for
-testing:
-
-.. code:: shell
-
-    pip install -r tests/requirements.txt
-    ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
-    molecule dependency
-
-To run the full test suite:
-
-.. code:: shell
-
-    pre-commit run --all-files
-    molecule test --platform all
+Testing requires Python 2.7, Tox, Vagrant and Virtualbox. To test simply run
+:code:`tox`. `Pre-commit <http://pre-commit.com/>`_ is also setup for this
+project.
 
 License
 -------
