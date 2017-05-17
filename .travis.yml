@@ -9,7 +9,6 @@ env:
         - VBOX_MEMORY=2048
         - VBOX_HWVIRTEX=off
     matrix:
-        - TOXENV=pre-commit
         - TOXENV=openbsd60
         - TOXENV=xenial
         - TOXENV=trusty
@@ -17,10 +16,7 @@ env:
         - &stretch TOXENV=stretch
         - &jessie TOXENV=jessie
         - TOXENV=wheezy
-matrix:
-    fast_finish: True
-    allow_failures:
-        - env: *stretch
+
 cache:
   - pip
   - directories:
@@ -31,7 +27,7 @@ install:
   - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
   - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
   - sudo dpkg -i vagrant_1.9.1_x86_64.deb
-  - pip install tox-travis | cat
+  - &pip_install pip install tox-travis | cat
 
 script:
   - travis_wait 45 tox
@@ -40,3 +36,14 @@ notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   email: false
   on_failure: never
+
+matrix:
+    fast_finish: True
+    allow_failures:
+        - env: *stretch
+    include:
+        - env:
+            TOXENV: pre-commit
+          install:
+              - *pip_install
+          sudo: False
