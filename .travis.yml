@@ -21,6 +21,7 @@ cache:
   - pip
   - directories:
       - $HOME/.pre-commit
+      - $HOME/.vagrant.d/boxes
 
 install:
   - sudo apt-get update
