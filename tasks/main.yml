@@ -10,9 +10,11 @@
   register: debian_bootstrap_install_python
   changed_when: "'Unpacking' in debian_bootstrap_install_python.stdout"
 
-- name: Install IP utilities for networking facts
+- name: Install requirements for more complete facts
   apt:
-      name: iproute
+      name:
+          - iproute
+          - lsb-release
       state: present
       update_cache: yes
       cache_valid_time: 3600

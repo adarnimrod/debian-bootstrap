@@ -24,3 +24,4 @@
         assert:
             that:
                 - ansible_default_ipv4 is defined
+                - ansible_lsb is mapping
