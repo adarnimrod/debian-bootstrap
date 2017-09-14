@@ -5,4 +5,4 @@
   assert:
     that:
         - ansible_os_family in ['OpenBSD', 'Debian']
-        - ansible_distribution_release in ['xenial', 'trusty', 'precise', 'stretch', 'jessie', 'wheezy'] or ansible_distribution_version in ['6.0']
+        - ansible_lsb.codename in ['xenial', 'trusty', 'precise', 'stretch', 'jessie', 'wheezy'] or ansible_distribution_version in ['6.0']
