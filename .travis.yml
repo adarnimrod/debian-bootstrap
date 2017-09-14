@@ -1,33 +1,50 @@
 ---
 language: python
-python: ["2.7", "3.4"]
+python: "2.7"
 dist: trusty
 sudo: True
 group: beta
-services: [docker]
+env:
+    global:
+        - VBOX_MEMORY=2048
+        - VBOX_HWVIRTEX=off
+    matrix:
+        - TOXENV=openbsd60
+        - TOXENV=xenial
+        - TOXENV=trusty
+        - TOXENV=precise
+        - &stretch TOXENV=stretch
+        - &jessie TOXENV=jessie
+        - TOXENV=wheezy
+
 cache:
   - pip
   - directories:
       - $HOME/.pre-commit
-matrix:
-    fast_finish: True
-    allow_failures:
-        - python: "3.4"
+      - $HOME/.vagrant.d/boxes
 
 install:
   - sudo apt-get update
   - sudo apt-get install -y linux-headers-$(uname -r) virtualbox
   - wget https://releases.hashicorp.com/vagrant/1.9.1/vagrant_1.9.1_x86_64.deb
   - sudo dpkg -i vagrant_1.9.1_x86_64.deb
-  - pip install -r tests/requirements.txt | cat
-  - ansible-galaxy install git+file://$(pwd),$(git rev-parse --abbrev-ref HEAD) -p .molecule/roles
-  - molecule dependency
-  - for image in ubuntu:precise ubuntu:trusty ubuntu:xenial debian:wheezy debian:jessie debian:stretch; do docker pull $image; done
+  - &pip_install pip install tox-travis | cat
 
 script:
-  - pre-commit run --all-files
-  - molecule test --driver docker
+  - travis_wait 45 tox
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   email: false
+  on_failure: never
+
+matrix:
+    fast_finish: True
+    allow_failures:
+        - env: *stretch
+    include:
+        - env:
+            TOXENV: pre-commit
+          install:
+              - *pip_install
+          sudo: False

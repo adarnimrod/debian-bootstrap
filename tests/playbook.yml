@@ -1,13 +1,23 @@
 ---
-- hosts: all
-  gather_facts: False
-  roles: [debian-bootstrap]
-  post_tasks:
-      - name: APT install sudo
-        apt:
-            name: sudo
-            state: present
+- hosts: debian-bootstrap-openbsd*
+  gather_facts: false
+  roles:
+      - openbsd-bootstrap
+      - role: users
+        users: []
+        users_use_sudo: True
+        users_lock_root_ssh: False
 
+- hosts: [debian-bootstrap-xenial, debian-bootstrap-wheezy]
+  gather_facts: false
+  roles:
+      - debian-bootstrap
+      - role: users
+        users: []
+        users_use_sudo: True
+        users_lock_root_ssh: False
+
+  post_tasks:
       - name: Test gathering facts
         setup:
 
